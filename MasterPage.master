@@ -1,0 +1,89 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="/assets/js/jquery-3.2.1.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <nav class="navbar navbar-default" runat="server" ID="navbar">
+        <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <i class="glyphicon glyphicon-home"></i>
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="/About.aspx">Sobre nosotros <span class="sr-only">(current)</span></a></li>
+                <li><a href="/FAQ.aspx">FAQs</a></li>
+                <li><a href="/PaymentMethods.aspx">Métodos de pago</a></li>
+                <li><a href="/Contact.aspx">Contactos</a></li>
+            </ul>
+            <form class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input type="text" name="q" class="form-control" placeholder="Búsqueda">
+                </div>
+                <button class="btn btn-default"
+                    type="submit">
+                        
+                    Buscar
+                </button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+            <li>
+                <asp:HyperLink runat="server" 
+                    ID="loginBtn" 
+                    Text="Iniciar Sesión / Registrarse"
+                    NavigateUrl="~/Login.aspx" />
+            </li>
+            <li class="dropdown" runat="server" id="userOptions">
+                <a href="#" 
+                    class="dropdown-toggle" 
+                    data-toggle="dropdown" 
+                    role="button" 
+                    aria-haspopup="true" 
+                    aria-expanded="false">
+                        <asp:Literal ID="userName" runat="server" />
+                        <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                <li><a href="/Post">Listado de productos</a></li>
+                <li role="separator" class="divider"></li>
+                <li>
+                    <form method="post" action="/Login.aspx">
+                        <input name="action" value="logout" type="hidden" />
+                        <button class="btn btn-link" type="submit">
+                            Cerrar sesión
+                        </button>
+                    </form>
+                </li>
+                </ul>
+            </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    
+    <asp:Panel runat="server" CssClass="container">
+        <asp:ContentPlaceHolder id="Content" runat="server">
+        </asp:ContentPlaceHolder>
+    </asp:Panel>
+</body>
+</html>

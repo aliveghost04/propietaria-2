@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TiendaEnLineaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="products">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="details" Type="text" Nullable="false" />
+          <Property Name="characteristics" Type="text" />
+          <Property Name="unit_price" Type="decimal" Precision="13" Scale="2" Nullable="false" />
+          <Property Name="available" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sessions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="session" Type="text" Nullable="false" />
+          <Property Name="status" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="phone_number" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="register_date" Type="datetime" Nullable="false" />
+          <Property Name="credit_card_number" Type="char" MaxLength="16" />
+          <Property Name="credit_card_expiration_year" Type="smallint" />
+          <Property Name="credit_card_expiration_month" Type="tinyint" />
+          <Property Name="credit_card_cvv" Type="smallint" />
+          <Property Name="type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="status" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="warehouse">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="latitude" Type="decimal" Precision="9" Scale="6" />
+          <Property Name="longitude" Type="decimal" Precision="9" Scale="6" />
+        </EntityType>
+        <EntityType Name="warehouse_products">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="warehouse_id" Type="int" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__warehouse__produ__15502E78">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="warehouse_products" Type="Self.warehouse_products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="warehouse_products">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__warehouse__wareh__145C0A3F">
+          <End Role="warehouse" Type="Self.warehouse" Multiplicity="1" />
+          <End Role="warehouse_products" Type="Self.warehouse_products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="warehouse">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="warehouse_products">
+              <PropertyRef Name="warehouse_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TiendaEnLineaModelStoreContainer">
+          <EntitySet Name="products" EntityType="Self.products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sessions" EntityType="Self.sessions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="warehouse" EntityType="Self.warehouse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="warehouse_products" EntityType="Self.warehouse_products" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__warehouse__produ__15502E78" Association="Self.FK__warehouse__produ__15502E78">
+            <End Role="products" EntitySet="products" />
+            <End Role="warehouse_products" EntitySet="warehouse_products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__warehouse__wareh__145C0A3F" Association="Self.FK__warehouse__wareh__145C0A3F">
+            <End Role="warehouse" EntitySet="warehouse" />
+            <End Role="warehouse_products" EntitySet="warehouse_products" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TiendaEnLineaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="products">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="details" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="characteristics" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="unit_price" Type="Decimal" Precision="13" Scale="2" Nullable="false" />
+          <Property Name="available" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="warehouse_products" Relationship="Self.FK__warehouse__produ__15502E78" FromRole="products" ToRole="warehouse_products" />
+        </EntityType>
+        <EntityType Name="sessions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="session" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phone_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="register_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="credit_card_number" Type="String" MaxLength="16" FixedLength="true" Unicode="false" />
+          <Property Name="credit_card_expiration_year" Type="Int16" />
+          <Property Name="credit_card_expiration_month" Type="Byte" />
+          <Property Name="credit_card_cvv" Type="Int16" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="warehouse">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="latitude" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="longitude" Type="Decimal" Precision="9" Scale="6" />
+          <NavigationProperty Name="warehouse_products" Relationship="Self.FK__warehouse__wareh__145C0A3F" FromRole="warehouse" ToRole="warehouse_products" />
+        </EntityType>
+        <EntityType Name="warehouse_products">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="warehouse_id" Type="Int32" Nullable="false" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="products" Relationship="Self.FK__warehouse__produ__15502E78" FromRole="warehouse_products" ToRole="products" />
+          <NavigationProperty Name="warehouse" Relationship="Self.FK__warehouse__wareh__145C0A3F" FromRole="warehouse_products" ToRole="warehouse" />
+        </EntityType>
+        <Association Name="FK__warehouse__produ__15502E78">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="warehouse_products" Type="Self.warehouse_products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="warehouse_products">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__warehouse__wareh__145C0A3F">
+          <End Role="warehouse" Type="Self.warehouse" Multiplicity="1" />
+          <End Role="warehouse_products" Type="Self.warehouse_products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="warehouse">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="warehouse_products">
+              <PropertyRef Name="warehouse_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TiendaEnLineaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="products" EntityType="Self.products" />
+          <EntitySet Name="sessions" EntityType="Self.sessions" />
+          <EntitySet Name="users" EntityType="Self.users" />
+          <EntitySet Name="warehouse" EntityType="Self.warehouse" />
+          <EntitySet Name="warehouse_products" EntityType="Self.warehouse_products" />
+          <AssociationSet Name="FK__warehouse__produ__15502E78" Association="Self.FK__warehouse__produ__15502E78">
+            <End Role="products" EntitySet="products" />
+            <End Role="warehouse_products" EntitySet="warehouse_products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__warehouse__wareh__145C0A3F" Association="Self.FK__warehouse__wareh__145C0A3F">
+            <End Role="warehouse" EntitySet="warehouse" />
+            <End Role="warehouse_products" EntitySet="warehouse_products" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TiendaEnLineaModelStoreContainer" CdmEntityContainer="TiendaEnLineaEntities">
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="TiendaEnLineaModel.products">
+              <MappingFragment StoreEntitySet="products">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="details" ColumnName="details" />
+                <ScalarProperty Name="characteristics" ColumnName="characteristics" />
+                <ScalarProperty Name="unit_price" ColumnName="unit_price" />
+                <ScalarProperty Name="available" ColumnName="available" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sessions">
+            <EntityTypeMapping TypeName="TiendaEnLineaModel.sessions">
+              <MappingFragment StoreEntitySet="sessions">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="session" ColumnName="session" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="TiendaEnLineaModel.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="register_date" ColumnName="register_date" />
+                <ScalarProperty Name="credit_card_number" ColumnName="credit_card_number" />
+                <ScalarProperty Name="credit_card_expiration_year" ColumnName="credit_card_expiration_year" />
+                <ScalarProperty Name="credit_card_expiration_month" ColumnName="credit_card_expiration_month" />
+                <ScalarProperty Name="credit_card_cvv" ColumnName="credit_card_cvv" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="warehouse">
+            <EntityTypeMapping TypeName="TiendaEnLineaModel.warehouse">
+              <MappingFragment StoreEntitySet="warehouse">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="warehouse_products">
+            <EntityTypeMapping TypeName="TiendaEnLineaModel.warehouse_products">
+              <MappingFragment StoreEntitySet="warehouse_products">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="warehouse_id" ColumnName="warehouse_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
